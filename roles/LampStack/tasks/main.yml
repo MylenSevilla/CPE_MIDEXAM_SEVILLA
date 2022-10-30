@@ -1,0 +1,56 @@
+ - name: install mariadb server package (CentOS)
+   tags: centos,db,mariadb
+   dnf:
+     name: mariadb
+     state: latest
+   when: ansible_distribution == "CentOS"
+
+ - name: install mariadb server
+   tags: db,mariadb,ubuntu
+   apt:
+     name: mariadb-server
+     state: latest
+   when: ansible_distribution == "Ubuntu"
+
+ - name: install httpd package (CentOS)
+   tags: apache,centos,httpd
+   dnf:
+     name:
+       - httpd
+       - php
+     state: latest
+   when: ansible_distribution == "CentOS"
+
+ - name: start and enable httpd (CentOS)
+   tags: apache,centos,httpd
+   service:
+     name: httpd
+     state: started
+     enabled: yes
+   when: ansible_distribution == "CentOS"
+
+ - name: install apache2 package (Ubuntu)
+   tags: apache,apache2,ubuntu
+   apt:
+     name:
+       - apache2
+       - libapache2-mod-php
+     state: latest
+   when: ansible_distribution == "Ubuntu"
+
+ - name: change e-mail address for admin
+   tags: apache,centos,httpd
+   lineinfile:
+     path: /etc/httpd/conf/httpd.conf
+     regexp: '^ServerAdmin'
+     line: ServerAdmin somebody@somewhere.net
+   when: ansible_distribution == "CentOS"
+   register: httpd
+
+ - name: restart httpd (CentOS)
+   tags: apache,centos,httpd
+   service:
+     name: httpd
+     state: restarted
+   when: httpd.changed
+

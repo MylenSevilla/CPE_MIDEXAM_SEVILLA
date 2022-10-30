@@ -1,0 +1,27 @@
+#Only for Ubuntu
+[UbuntuElasticSearch]
+192.168.56.102
+
+#Only for CentOS
+[CentosElasticSearch]
+192.168.56.104
+
+#Only 1 host for the Ubuntu Server
+[Nagios]
+192.168.56.102
+
+[Influxdb]
+192.168.56.102
+192.168.56.104
+
+[Grafana]
+192.168.56.102
+192.168.56.104
+
+[Prometheus]
+192.168.56.102
+192.168.56.104
+
+[LampStack]
+192.168.56.102
+192.168.56.104

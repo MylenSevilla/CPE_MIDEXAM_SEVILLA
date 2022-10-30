@@ -1,0 +1,35 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  -  name: Install updates for Ubuntu
+     tags: always
+     apt:
+       upgrade: dist
+       update_cache: yes
+     changed_when: false
+     when: ansible_distribution == "Ubuntu"
+
+  -  name: Update REpository Index for CentOS
+     tags: always
+     dnf:
+       update_cache: yes
+     changed_when: false
+     when: ansible_distribution == "CentOS"
+
+  -  name: Installation unzip
+     package:
+       name: unzip
+
+- hosts: all
+  become: true
+  roles:
+#    - UbuntuElasticSearch
+#    - CentosElasticSearch
+#    - Nagios
+    - Influxdb
+ #   - Grafana
+ #   - Prometheus
+#    - LampStack
